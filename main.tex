@@ -1,0 +1,203 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\title{Calcul des séquents}
+\date{}
+\begin{document}
+
+\maketitle
+
+\section{Notion de séquent}
+
+\subsection{Une définition abstraite}
+
+Un séquent est un couple de la forme
+$$\Pi \vdash \Gamma $$
+
+Où $\Pi$ et $\Gamma$ sont des \textit{multi-ensembles de formules logiques}. On parlera de \textit{prémices} pour les éléments de $\Pi$, et de \textit{conclusions} pour les éléments de $\Gamma$
+
+\subsubsection{Une parenthèse sur la notion de multi-ensemble}
+
+En ce qui concerne les ensembles, l'\textit{axiome d'extensionalité} impose que chaque élément n'apparaisse qu'une seule fois.
+
+Dans le cas général, on s'autorise donc à avoir plusieurs occurrences de chaque élément. On parle alors de \textit{multi-ensemble}.
+
+\subsection{Des exemples de séquents}
+
+Soient $A,B,C$ des formules logiques. On a par exemple comme séquent :
+
+1) $\vdash$
+
+2) $\vdash A$
+
+3) $A \vdash $
+
+4) $A \vdash B$
+
+5) $A,B \vdash A$
+
+6) $A,B \vdash A,C$
+
+\subsection{Une formule logique associée au séquent}
+
+On associe au séquent :
+
+$$A_1,A_2,...,A_n \vdash B_1,B_2,...,B_m$$
+
+La formule logique :
+
+$$A_1 \wedge A_2 \wedge ... \wedge A_n \Rightarrow B_1 \lor B_2 \lor ... \lor B_m$$
+
+On prend pour \textbf{True} pour la conjonction vide ($n=0$), et \textbf{False} pour la disjonction vide ($m=0$)
+
+\subsection{Sémantique d'un séquent}
+
+On dit qu'un séquent est \textit{valide} si et seulement si la formule logique qui lui est associée est valide (autrement dit si elle est une tautologie, à savoir sémantiquement équivalente à \textbf{True})
+\\
+
+Dans les exemples précédents :
+
+1) $\vdash$ n'est pas valide
+
+2) $\vdash A$ n'est pas valide
+
+3) $A \vdash$ n'est pas valide
+
+4) $A \vdash B$ n'est pas valide
+
+5) $A,B \vdash A$ est valide
+
+6) $A,B \vdash A,C$ est valide
+
+\section{Calcul de séquents}
+
+\subsection{Règles d'inférence}
+
+Pour définir un calcul de séquents, on se donne un ensemble de \textit{règles d'inférence}. Chaque règle est de la forme :
+
+$$\frac{\Pi_1 \vdash \Gamma_1 , \Pi_2 \vdash \Gamma_2 ,..., \Pi_n \vdash \Gamma_n}{\Pi \vdash \Gamma} \; (n \geq 0)$$
+
+Lorsque $n=0$, on dit que la règle est un \textit{axiome}.
+
+\subsection{Le système $\mathcal{G}$}
+On va lister les règles d'inférences du système $\mathcal{G}$. Les abréviations qui y sont accolées serviront pour les démonstrations et calculs à venir.
+
+Axiome :
+$$\frac{}{\Pi,A \vdash \Gamma,A} \;\;(ax)$$
+\\
+
+Règle de coupure :
+$$\frac{\Pi \vdash \Gamma, A \;\;\;\;\; \Pi,A \vdash \Gamma}{\Pi \vdash \Gamma} \; \; (cut)$$
+\\
+
+\subsubsection{Règles d'inférence logiques}
+.
+
+Négation à gauche :
+
+$$\frac{\Pi \vdash \Gamma,A}{\Pi,\neg A \vdash \Gamma} \;\; (\neg g)$$
+
+Elle s'interprète comme suit : "Si $\Pi$ entraîne $A$ ou $\Gamma$, alors, $\Pi$ et $\neg A$ entraînent $\Gamma$. "
+\\
+
+Négation à droite :
+
+$$\frac{\Pi,A \vdash \Gamma}{\Pi \vdash \Gamma, \neg A} \;\; (\neg d)$$
+
+"Si $\Pi$ et $A$ entraînent $\Gamma$, alors $\Pi$ entraîne $\Gamma$ ou $\neg A$."
+\\
+
+Implication à gauche :
+
+$$\frac{\Pi,A \vdash \Gamma \;\;\;\;\; \Pi,B \vdash \Gamma}{\Pi,A \Rightarrow B \vdash \Gamma} \;\; (\Rightarrow g)$$
+\\
+
+Implication à droite :
+$$\frac{\Pi,A \vdash B,\Gamma}{\Pi \vdash A \Rightarrow B, \Gamma} \;\; (\Rightarrow d)$$
+\\
+
+Conjonction à gauche :
+$$\frac{\Pi,A,B \vdash \Gamma}{\Pi,A \wedge B \vdash \Gamma} \;\; (\wedge g)$$
+\\
+
+Conjonction à droite :
+$$\frac{\Pi \vdash A, \Gamma \;\;\;\; \Pi \vdash B,\Gamma}{\Pi \vdash A \wedge B, \Gamma} \;\; (\wedge d)$$
+\\
+
+Disjonction à gauche :
+$$\frac{\Pi,A \vdash \Gamma \;\;\;\; \Pi,B \vdash \Gamma}{\Pi, A \lor B \vdash \Gamma} \;\; (\lor g)$$
+\\
+
+Disjonction à droite
+$$\frac{\Pi \vdash A,B,\Gamma}{\Pi \vdash A \lor B, \Gamma} \;\; (\lor d)$$
+\\
+
+\subsection{Réversibilité}
+
+On dit qu'une règle est \textit{réversible} si :
+$$\frac{\Pi_1 \vdash \Gamma_1 , \Pi_2 \vdash \Gamma_2 ,..., \Pi_n \vdash \Gamma_n}{\Pi \vdash \Gamma}$$
+
+La formule logique associée à la conclusion $\Pi \vdash \Gamma$ est sémantiquement équivalente à la conjonction des formules logiques des prémisses, $\Pi_i \vdash \Gamma_i$.
+\\
+
+On remarque que toutes les règles d'inférences du système $\mathcal{G}$ sont réversibles, à l'exception de la règle de coupure :
+
+En effet, soient $A,B,C$ des formules logiques, en considérant l'instance suivante :
+$$\frac{C \vdash B,A \;\;\;\;\; A,C \vdash B}{C \vdash B}$$
+
+On remarque que $[C \Rightarrow (B \lor A)] \wedge [(A \wedge C) \Rightarrow B]$ n'est pas sémantiquement équivalente à $C \Rightarrow B$. En effet :
+$$[C \Rightarrow (B \lor A)] \wedge [(A \wedge C) \Rightarrow B] \equiv [\neg C \lor B \lor A] \wedge [\neg (A \wedge C) \lor B]$$
+
+Or :
+$$[\neg C \lor B \lor A] \wedge [\neg (A \wedge C) \lor B] \equiv [\neg C \lor B \lor A] \wedge [\neg A \lor \neg C \lor B]$$
+
+Et on sait qu'en développant, on obtient :
+$$(A \wedge \neg A) \lor (A \wedge B) \lor (A \wedge \neg C) \lor (B \wedge \neg A) \lor (B \wedge B) \lor (B \wedge \neg C) \lor (\neg C \wedge \neg A) \lor (\neg C \wedge B) \lor (\neg C \wedge \neg C)$$
+Autrement dit :
+$$(A \wedge B)\lor(A \wedge \neg C)\lor(B \wedge \neg A) \lor B \lor (B \wedge \neg C) \lor \neg C$$
+
+On factorise ce qu'on peut :
+$$[A \wedge (B \lor \neg B)] \lor neg C \lor B \lor [\neg C \wedge (A \lor B)]$$
+
+On simplifie :
+$$A \lor (C \Rightarrow B) \lor [\neg C \wedge (A \lor B)]$$
+
+Autrement dit, pour $(A,B,C) = \textup{(\textbf{True},\textbf{True},\textbf{False})}$, $C \Rightarrow B$ est fausse, mais $[C \Rightarrow (B \lor A)] \wedge [(A \wedge C) \Rightarrow B]$ est vraie.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
